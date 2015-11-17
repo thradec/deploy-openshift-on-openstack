@@ -1,0 +1,8 @@
+---
+- name: Add routing config to master config
+  lineinfile: dest=/etc/openshift/master/master-config.yaml line='routingConfig{{":"}}'
+  register: result
+
+- name: Restart master service
+  service: name=openshift-master state=restarted
+  when: result.changed

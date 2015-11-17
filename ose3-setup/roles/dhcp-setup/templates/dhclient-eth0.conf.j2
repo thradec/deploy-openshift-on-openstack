@@ -1,0 +1,3 @@
+timeout 45;
+prepend domain-search "example.com";
+prepend domain-name-servers {{ hostvars[groups['dns'][0]]['ose_ip'] }};

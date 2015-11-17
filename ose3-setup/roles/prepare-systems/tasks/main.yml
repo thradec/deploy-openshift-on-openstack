@@ -1,0 +1,31 @@
+---
+- name: Install deltarpm to save bandwidth
+  yum: name=deltarpm state=present
+
+- name: Install tools
+  yum: name={{ item }} state=present
+  with_items:
+    - wget
+    - vim-enhanced
+    - net-tools
+    - bind-utils
+    - git
+
+- name: Update machine
+  yum: name=* state=latest
+
+- name: Stop NetworkManager
+  service: name=NetworkManager state=stopped
+  register: result
+
+- name: Restart network
+  service: name=network state=restarted
+  when: result.changed
+
+- name: Wait a few seconds for network restart
+  pause: seconds=10
+  when: result.changed
+
+- name: Remove NetworkManager
+  yum: name=NetworkManager* state=absent
+  when: result.changed

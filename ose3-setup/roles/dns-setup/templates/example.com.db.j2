@@ -1,0 +1,21 @@
+$ORIGIN .
+$TTL 1	; 1 second
+{{ ose_domain }}			IN SOA	ns1.{{ ose_domain }}. hostmaster.{{ ose_domain }}. (
+					2011112906 ; serial
+					60         ; refresh (1 minute)
+					15         ; retry (15 seconds)
+					1800       ; expire (30 minutes)
+					10         ; minimum (10 seconds)
+					)
+				NS	ns1.{{ ose_domain }}.
+				MX	10 mail.{{ ose_domain }}.
+$ORIGIN {{ ose_domain }}.
+
+$TTL 180	; 3 minutes
+{% for host in groups['inventory'] %}
+{{ hostvars[host]['ose_hostname'] }}    A    {{ hostvars[host]['ose_ip'] }}
+{% endfor %}
+
+$TTL 1	; 1 second
+ns1            A    {{ hostvars[groups['dns'][0]]['ose_ip'] }}
+*.{{ ose_apps }}    A    {{ hostvars[groups['master'][0]]['ose_ip'] }}

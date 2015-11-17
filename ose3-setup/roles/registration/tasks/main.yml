@@ -1,0 +1,24 @@
+---
+- name: Check if system is registered
+  command: subscription-manager version
+  register: registration_status
+
+- name: Register system
+  command: subscription-manager register --username=qa@redhat.com --password=QMdMJ8jvSWUwB6WZ
+  when: registration_status.stdout.find('This system is currently not registered') != -1
+
+- name: Attach 'Employee SKU' subscription
+  command: subscription-manager attach  --pool 8a85f9823e3d5e43013e3ddd4e9509c4
+  when: registration_status.stdout.find('This system is currently not registered') != -1
+
+- name: Disable default repositories
+  command: subscription-manager repos --disable="*"
+  when: registration_status.stdout.find('This system is currently not registered') != -1
+
+- name: Enable necessary RHEL repositories
+  command: subscription-manager repos --enable="rhel-7-server-rpms" --enable="rhel-7-server-extras-rpms" --enable="rhel-7-server-optional-rpms"
+  when: registration_status.stdout.find('This system is currently not registered') != -1
+
+- name: Enable Released OpenShift repositories
+  command: subscription-manager repos --enable="rhel-7-server-ose-3.0-rpms"
+  when: registration_status.stdout.find('This system is currently not registered') != -1 and install_released_ose

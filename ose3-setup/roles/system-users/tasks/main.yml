@@ -1,0 +1,12 @@
+---
+- name: Add xpaasqe user
+  user: name=xpaasqe
+
+- name: Give sudo rights to xpaasqe user
+  lineinfile: "dest=/etc/sudoers line='xpaasqe         ALL=(ALL)       NOPASSWD: ALL'"
+
+- name: Create .ssh in xpaasqe user's home
+  file: path=/home/xpaasqe/.ssh mode=700 state=directory owner=xpaasqe group=xpaasqe
+
+- name: Copy authorized_keys file
+  copy: src=authorized_keys dest=/home/xpaasqe/.ssh/authorized_keys mode=600 owner=xpaasqe group=xpaasqe

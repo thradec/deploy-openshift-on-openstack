@@ -1,0 +1,18 @@
+$ORIGIN .
+$TTL 1	; 1 second
+xpaasqe.redhat.com		IN SOA	ns1.xpaasqe.redhat.com. hostmaster.xpaasqe.redhat.com. (
+				2011112906 ; serial
+				60         ; refresh (1 minute)
+				15         ; retry (15 seconds)
+				1800       ; expire (30 minutes)
+				10         ; minimum (10 seconds)
+				)
+			NS	ns1.xpaasqe.redhat.com.
+			MX	10 mail.xpaasqe.redhat.com.
+$ORIGIN xpaasqe.redhat.com.
+gitlab          A    10.3.8.178
+maven           A    10.34.75.204
+$TTL 180	; 3 minutes
+
+$TTL 1	; 1 second
+ns1            A    {{ hostvars[groups['dns'][0]]['ose_ip'] }}

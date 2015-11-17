@@ -1,0 +1,12 @@
+---
+- name: Create a htpasswd file if it doesn't exist
+  file: path=/etc/openshift/master/htpasswd state=touch
+
+- name: Add 'admin' user to OpenShift
+  lineinfile: dest=/etc/openshift/master/htpasswd line="admin:$apr1$QTy888cL$/AJ14XL.K7gHWb7UMBUZu0"
+
+- name: Add 'xpaasqe' user to OpenShift
+  lineinfile: dest=/etc/openshift/master/htpasswd line="xpaasqe:$apr1$ZX4XQ6Ko$eYtVW/uYcWMlKgXGJO6cw/"
+
+- name: Add cluster-admin role to admin user
+  command: oadm policy add-cluster-role-to-user cluster-admin admin

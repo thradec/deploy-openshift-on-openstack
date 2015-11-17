@@ -1,0 +1,17 @@
+---
+- name: Find Service Accounts
+  command: oc get serviceAccount -n default
+  register: sa
+
+- name: Create 'router' Service Account
+  command: echo '{"kind":"ServiceAccount","apiVersion":"v1","metadata":{"name":"router"}}' | oc create -f -
+  when: sa.stdout.find("router") == -1
+
+- name: Find Security Context Constraints
+  command: oc get serviceAccount -n default
+  register: scc
+
+- name: Create 'hostport' Security Context Constraint
+  command:  oc create -f https://raw.githubusercontent.com/openshift-qe/v3-testfiles/master/authorization/scc/scc_hostport.yaml
+  when: scc.stdout.find("hostport") == -1
+

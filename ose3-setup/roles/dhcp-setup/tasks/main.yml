@@ -1,0 +1,6 @@
+---
+- name: Copy dhclient-eth0.conf
+  template: src=dhclient-eth0.conf.j2 dest=/etc/dhcp/dhclient-eth0.conf
+
+- name: Setup resolv.conf
+  lineinfile: "dest=/etc/resolv.conf state=present insertafter='search.*$' line='nameserver {{ hostvars[groups['dns'][0]]['ose_ip'] }}'"

@@ -1,0 +1,11 @@
+---
+- name: Determine what kind of machine we use
+  stat: path=/etc/cloud/cloud.cfg
+  register: cloudConfig
+
+- name: Set hostname preservation in cloud-init
+  lineinfile: "dest=/etc/cloud/cloud.cfg state=present insertafter='ssh_pwauth:   0' line='preserve_hostname: True'"
+  when: cloudConfig.stat.exists
+
+- name: Set hostname
+  hostname: name={{ ose_hostname }}.{{ ose_domain }}

@@ -1,0 +1,9 @@
+---
+- name: Clone git repository
+  git: dest=/tmp/openshift-ansible repo={{ ose_installer_uri }} version={{ ose_installer_branch }}
+
+- name: Create hosts file
+  template: src=inventory.j2 dest=/tmp/openshift-ansible/hosts
+
+- name: Run installer
+  shell: ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts playbooks/byo/config.yml chdir=/tmp/openshift-ansible

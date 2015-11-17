@@ -1,0 +1,17 @@
+[inventory]
+10.3.12.133    ose_hostname=master-osev31 ose_ip=10.3.12.133   ose_region=primary   ose_zone=default
+10.3.12.134    ose_hostname=node1-osev31  ose_ip=10.3.12.134   ose_region=infra     ose_zone=default
+10.3.12.140    ose_hostname=node2-osev31  ose_ip=10.3.12.140   ose_region=primary   ose_zone=default
+10.3.12.141    ose_hostname=node3-osev31  ose_ip=10.3.12.141   ose_region=primary   ose_zone=default
+
+[master]
+10.3.12.133
+
+[dns]
+10.3.12.134
+
+[node]
+10.3.12.133
+10.3.12.134
+10.3.12.140
+10.3.12.141
