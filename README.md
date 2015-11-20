@@ -2,7 +2,7 @@
 
 #### The purpose of this project is to minimize as much manual setup as possible
 
-#### A complete howto for a manual setup of openshift on openstck can be found here https://blog.openshift.com/setting-openshift-3-openstack/ by Veer Muchandi
+#### A complete howto for a manual setup of openshift on openstack can be found here https://blog.openshift.com/setting-openshift-3-openstack/ by Veer Muchandi
 
 
 ### Steps
@@ -10,7 +10,7 @@
 - If not installed please install it
 - A comprehensive guide can be found here http://docs.openstack.org/user-guide/common/cli_install_openstack_command_line_clients.html
 
-- A quick guide to install nocaclient on your local machine (assuming you have python installed)
+- A quick guide to install novaclient on your local machine (assuming you have python installed)
 
   - pip install python-novaclient
   - pip install python-barbicanclient
@@ -31,9 +31,9 @@
   - pip install python-tuskarclient
   - pip install python-openstackclient
 
-- Ensure you have access to openstack and the RHMAP tenant (if not create a servcie request to allow you access to public openstack RHMAP tenant)
+- Ensure you have access to openstack and the RHMAP tenant (if not create a service request to allow you access to public openstack RHMAP tenant)
 - Login and go to the Access&Security tab then navigate to the API Access sub tab
-- Click on the 'Download OpenStack RC File
+- Click on the 'Download OpenStack RC File'
 - This file will be used in the nova-create.sh script
 - The nova-create script will do the following :-
   - Initialise the nova client access (it will ask you for a password)
@@ -41,8 +41,9 @@
   - Create a security group
   - Add rules to this group
   - Launch 4 instances using m1.large flavor and Rhel7.1 guest image (master and 3 nodes)
+  - The command nova-list can be used to obtain ip addresses which should be used to update the host file
 
-- Once this is completed run's the xpaas script to :-
+- Once this is completed the xpaas script will execute doing :-
   - Subscription registration
   - Update repositories
   - Install the relevant software
@@ -54,4 +55,3 @@
   - Clone the openshift ansible git repo
   - Install openshift
   - Configure openshift
-
