@@ -138,6 +138,16 @@ function create() {
 }
 
 function remove() {
+  # used for testing 
+  # overides the previous set values
+  if [  "$1" = "test" ]
+  then
+    KEYPAIR=abckp
+    SECGROUP=abc
+    INSTANCES=(abc-test1 abc-test2)
+    echo -e "${INFO} Using test parameters"
+  fi
+
   for i in ${INSTANCES[@]}; do
     echo -e "${INFO} Deleting instance ${i}"
     nova delete ${i}
@@ -145,11 +155,31 @@ function remove() {
 }
 
 function removeKey() {
+  # used for testing 
+  # overides the previous set values
+  if [  "$1" = "test" ]
+  then
+    KEYPAIR=abckp
+    SECGROUP=abc
+    INSTANCES=(abc-test1 abc-test2)
+    echo -e "${INFO} Using test parameters"
+  fi
+
   echo -e "${INFO} Deleting keypair ${KEYPAIR}"
   nova keypair-delete ${KEYPAIR}
 }
 
 function removeSecGroup() {
+  # used for testing 
+  # overides the previous set values
+  if [  "$1" = "test" ]
+  then
+    KEYPAIR=abckp
+    SECGROUP=abc
+    INSTANCES=(abc-test1 abc-test2)
+    echo -e "${INFO} Using test parameters"
+  fi
+
   echo -e "${INFO} Deleting security group  ${SECGROUP}"
   nova secgroup-delete ${SECGROUP}
 }
@@ -184,17 +214,17 @@ else
 
   if [ "${1}" = "remove" ]
   then
-    remove
+    remove ${2}
   fi
   
   if [ "${1}" = "removeKey" ]
   then
-    removeKey
+    removeKey ${2}
   fi
   
   if [ "${1}" = "removeSecGroup" ]
   then
-    removeSecGroup
+    removeSecGroup ${2}
   fi
 
   if [ "${1}" = "useRc" ]
