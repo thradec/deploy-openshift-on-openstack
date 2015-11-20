@@ -19,15 +19,15 @@ ansible_sudo=true
 # change for v3.1
 deployment_type=openshift-enterprise
 
-{% if not install_released_ose %}
+#{% if not install_released_ose %}
 # Pre-release registry URL
-oreg_url=rcm-img-docker01.build.eng.bos.redhat.com:5001/openshift3/ose-${component}:${version}
-{% endif %}
+#oreg_url=rcm-img-docker01.build.eng.bos.redhat.com:5001/openshift3/ose-${component}:${version}
+#{% endif %}
 
 # v3.1
-openshift_additional_repos=[{'id': 'ose-devel', 'name': 'ose-devel', 'baseurl': 'http://buildvm-devops.usersys.redhat.com/puddle/build/AtomicOpenShift/3.1/latest/RH7-RHAOS-3.1/x86_64/os/', 'enabled': 1, 'gpgcheck': 0}]
-cli_docker_additional_registries=rcm-img-docker01.build.eng.bos.redhat.com:5001
-cli_docker_insecure_registries=rcm-img-docker01.build.eng.bos.redhat.com:5001
+#openshift_additional_repos=[{'id': 'ose-devel', 'name': 'ose-devel', 'baseurl': 'http://buildvm-devops.usersys.redhat.com/puddle/build/AtomicOpenShift/3.1/latest/RH7-RHAOS-3.1/x86_64/os/', 'enabled': 1, 'gpgcheck': 0}]
+#cli_docker_additional_registries=rcm-img-docker01.build.eng.bos.redhat.com:5001
+#cli_docker_insecure_registries=rcm-img-docker01.build.eng.bos.redhat.com:5001
 
 # v3.0
 #{% if not use_released_registry %}

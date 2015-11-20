@@ -207,31 +207,26 @@ else
     exit 1
   fi
 
-  if [ "${1}" = "create" ]
-  then
-    create ${2}
-  fi
-
-  if [ "${1}" = "remove" ]
-  then
-    remove ${2}
-  fi
+  case ${1} in
+      create)
+        create ${2}
+    ;;
+      remove)
+        remove ${2}
+    ;;
+      removeKey)
+        removeKey ${2}
+    ;;
+      removeSecGroup)
+        removeSecGroup ${2}
+    ;;
+      useRc)
+        source ${2}
+        exit 0
+    ;;
   
-  if [ "${1}" = "removeKey" ]
-  then
-    removeKey ${2}
-  fi
-  
-  if [ "${1}" = "removeSecGroup" ]
-  then
-    removeSecGroup ${2}
-  fi
+  esac
 
-  if [ "${1}" = "useRc" ]
-  then
-    source ${2}
-    exit 0
-  fi
 
 fi
 

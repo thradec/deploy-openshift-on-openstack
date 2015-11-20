@@ -15,7 +15,7 @@
 - hosts: inventory
   sudo: yes
   roles:
-    - dhcp-setup
+    - { role: dhcp-setup, when: groups.dns.0 is defined }
 
 - hosts: 127.0.0.1
   sudo: no
