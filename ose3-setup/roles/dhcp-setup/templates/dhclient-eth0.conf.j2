@@ -1,3 +1,3 @@
 timeout 45;
-prepend domain-search "example.com";
+prepend domain-search "ose3-os1public-01.feedhenry.io";
 prepend domain-name-servers {{ hostvars[groups['dns'][0]]['ose_ip'] }};

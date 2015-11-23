@@ -1,0 +1,21 @@
+[inventory]
+209.132.178.171 ose_hostname=master-osev31 ose_ip=209.132.178.171   ose_region=infra   ose_zone=default
+209.132.178.224 ose_hostname=node1-osev31  ose_ip=209.132.178.224   ose_region=primary ose_zone=default
+
+
+[master]
+209.132.178.171
+
+[dns]
+209.132.178.224
+
+[node]
+209.132.178.171
+209.132.178.224
+
+[repos]
+209.132.183.44 name=xmlrpc.rhn.redhat.com
+23.204.148.218 name=content-xmlrpc.rhn.redhat.com
+209.132.183.49 name=subscription.rhn.redhat.com
+209.132.182.33 name=repository.jboss.org
+209.132.182.63 name=registry.access.redhat.com

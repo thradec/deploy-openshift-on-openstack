@@ -15,3 +15,12 @@
 10.3.12.134
 10.3.12.140
 10.3.12.141
+
+[repos]
+209.132.183.44 name=xmlrpc.rhn.redhat.com
+23.204.148.218 name=content-xmlrpc.rhn.redhat.com
+209.132.183.49 name=subscription.rhn.redhat.com
+209.132.182.33 name=epository.jboss.org
+209.132.182.63 name=registry.access.redhat.com
+
+

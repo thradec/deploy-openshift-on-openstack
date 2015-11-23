@@ -4,15 +4,15 @@
 # OpenStack
 ansible_ssh_user: cloud-user
 
-ansible_ssh_private_key_file: /Users/luigizuccarelli/.ssh/osev31.pem
+ansible_ssh_private_key_file: /Users/luigizuccarelli/.ssh/osev31pb.pem
 
 # true: install released (GA) OSE3 version from the official channel
 # false: install latest (pre-released) OSE3 version from puddle
-install_released_ose: false
+install_released_ose: true
 
 # true: use Docker registry with released images (ie. registry.access.redhat.com)
 # false: use pre-release Docker registry
-use_released_registry: false
+use_released_registry: true
 
 ose_domain: ose3-os1public-01.feedhenry.io
 ose_apps: cloudapps

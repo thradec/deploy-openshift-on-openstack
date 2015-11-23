@@ -1,4 +1,3 @@
-# Create an OSEv3 group that contains the masters and nodes groups
 [OSEv3:children]
 masters
 nodes
@@ -7,7 +6,9 @@ nodes
 [OSEv3:vars]
 # SSH user, this user should allow ssh based auth without requiring a password
 ansible_ssh_user={{ ansible_ssh_user }}
+{% if ansible_ssh_private_key_file is defined %}
 ansible_ssh_private_key_file={{ ansible_ssh_private_key_file }}
+{% endif %}
 
 # If ansible_ssh_user is not root, ansible_sudo must be set to true
 {% if ansible_ssh_user != 'root' %}
@@ -15,28 +16,20 @@ ansible_sudo=true
 {% endif %}
 
 # To deploy origin, change deployment_type to origin
-#deployment_type=enterprise
-# change for v3.1
 deployment_type=openshift-enterprise
 
-#{% if not install_released_ose %}
+{% if not use_released_registry %}
 # Pre-release registry URL
-#oreg_url=rcm-img-docker01.build.eng.bos.redhat.com:5001/openshift3/ose-${component}:${version}
-#{% endif %}
+oreg_url=rcm-img-docker01.build.eng.bos.redhat.com:5001/openshift3/ose-${component}:${version}
+{% endif %}
 
-# v3.1
-#openshift_additional_repos=[{'id': 'ose-devel', 'name': 'ose-devel', 'baseurl': 'http://buildvm-devops.usersys.redhat.com/puddle/build/AtomicOpenShift/3.1/latest/RH7-RHAOS-3.1/x86_64/os/', 'enabled': 1, 'gpgcheck': 0}]
-#cli_docker_additional_registries=rcm-img-docker01.build.eng.bos.redhat.com:5001
-#cli_docker_insecure_registries=rcm-img-docker01.build.eng.bos.redhat.com:5001
-
-# v3.0
-#{% if not use_released_registry %}
+{% if not install_released_ose %}
 # Pre-release additional repo
-#openshift_additional_repos=[{'id': 'ose-devel', 'name': 'ose-devel', 'baseurl': 'http://buildvm-devops.usersys.redhat.com/puddle/build/OpenShiftEnterprise/3.0/latest/RH7-RHOSE-3.0/$basearch/os', 'enabled': 1, 'gpgcheck': 0}]
-#{% endif %}
+openshift_additional_repos=[{'id': 'ose-devel', 'name': 'ose-devel', 'baseurl': 'http://buildvm-devops.usersys.redhat.com/puddle/build/AtomicOpenShift/3.1/latest/RH7-RHAOS-3.1/$basearch/os', 'enabled': 1, 'gpgcheck': 0}]
+{% endif %}
 
 # htpasswd auth
-openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider', 'filename': '/etc/openshift/master/htpasswd'}]
+openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider', 'filename': '/etc/origin/master/htpasswd'}]
 
 # default subdomain to use for exposed routes
 osm_default_subdomain={{ ose_apps }}.{{ ose_domain }}

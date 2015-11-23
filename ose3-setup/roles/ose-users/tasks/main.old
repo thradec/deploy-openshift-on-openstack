@@ -3,7 +3,7 @@
   file: path=/etc/openshift/master/htpasswd state=touch
 
 - name: Add 'admin' user to OpenShift
-  lineinfile: dest=/etc/openshift/master/htpasswd line="admin:$apr1$SvGG97ES$pZo/LfA.VyolDWr84OStm."
+  lineinfile: dest=/etc/openshift/master/htpasswd line="admin:$apr1$QTy888cL$/AJ14XL.K7gHWb7UMBUZu0"
 
 - name: Add 'xpaasqe' user to OpenShift
   lineinfile: dest=/etc/openshift/master/htpasswd line="xpaasqe:$apr1$ZX4XQ6Ko$eYtVW/uYcWMlKgXGJO6cw/"

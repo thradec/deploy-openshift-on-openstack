@@ -31,12 +31,18 @@
 # t2.micro
 # t2.small
 
+# 209.132.183.44 xmlrpc.rhn.redhat.com
+# 23.204.148.218 content-xmlrpc.rhn.redhat.com
+# 209.132.183.49 subscription.rhn.redhat.com
+# 209.132.182.33 repository.jboss.org
+# 209.132.182.63 registry.access.redhat.com
+
 # for a list of images use 
 # nova image-list
 
 clear
 
-cmds=( create remove removeKey removeSecGroup useRc )
+cmds=( create createServer remove removeKey removeSecGroup useRc )
 
 # define convenience functions 
 function updateTime() {
@@ -47,9 +53,12 @@ function updateTime() {
   ERROR="${NOW} \033[0;91mERROR\033[0m :"
 }
 
-KEYPAIR=ose31
-SECGROUP=ose31
-INSTANCES=(master-ose31 node1-ose31 node2-ose31 node3-ose31)
+KEYPAIR=ose31pb
+SECGROUP=ose31sec
+#INSTANCES=(master-osev31 node1-osev31 node2-osev31 node3-osev31)
+INSTANCES=(master-osev31 node1-osev31)
+#RHEL_IMAGE=_OS1_rhel-guest-image-7.1
+RHEL_IMAGE=rhel-guest-image-7.1-20150224.0.x86_64
 
 function usage() {
   echo -e "${INFO} Usage \n"
@@ -92,7 +101,7 @@ function create() {
   nova secgroup-create ${SECGROUP} 'Openshift v3.1 on OpenStack'
 
 
-  image=$(nova image-list | grep _OS1_rhel-guest-image-7.1 | awk '{print $2}')
+  image=$(nova image-list | grep ${RHEL_IMAGE} | awk '{print $2}')
   flavor=$(nova flavor-list | grep m1.large | awk '{print $2}')
 
   if [ -z "$image" ] 
@@ -128,6 +137,21 @@ function create() {
   nova secgroup-add-rule ${SECGROUP} udp 24224 24224 0.0.0.0/0
 
 
+  for i in ${INSTANCES[@]}; do
+    echo -e "${INFO} Launching instance ${i}"
+    nova boot --flavor ${flavor} --image ${image} --security-groups ${SECGROUP},default --key-name ${KEYPAIR} ${i}
+    sleep 10;
+  done
+
+  nova list
+}
+
+function createServer() {
+  updateTime
+  image=$(nova image-list | grep ${RHEL_IMAGE} | awk '{print $2}')
+  flavor=$(nova flavor-list | grep m1.large | awk '{print $2}')
+  echo -e "${DEBUG} --image ${image} "
+  
   for i in ${INSTANCES[@]}; do
     echo -e "${INFO} Launching instance ${i}"
     nova boot --flavor ${flavor} --image ${image} --security-groups ${SECGROUP},default --key-name ${KEYPAIR} ${i}
@@ -210,6 +234,9 @@ else
   case ${1} in
       create)
         create ${2}
+    ;;
+    createServer)
+        createServer ${2}
     ;;
       remove)
         remove ${2}
