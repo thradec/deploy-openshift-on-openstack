@@ -42,6 +42,19 @@
   - Add rules to this group
   - Launch 4 instances using m1.large flavor and Rhel7.1 guest image (master and 3 nodes)
   - The command nova-list can be used to obtain ip addresses which should be used to update the host file
+  - TBD - create floating ip
+  - TBD - associate floating ip to instance
+  - TBD - create volume (size 15G)
+  - TBD - associate volume to instance (use /dev/vdb as device)
+  - TBD - check subscription manager (might have to add nameserver 8.8.8.8 nameserver 8.8.4.4 to /etc/resolv.conf)
+  - TBD - docker setup (cat <<EOF > /etc/sysconfig/docker-storage-setup
+          DEVS=/dev/vdb
+          VG=docker-vg
+          EOF
+  - TBD - execute docker-storage-setup and verify cat /etc/sysconfig/docker-storage
+  - TBD - systemctl restart docker
+  - TBD - sudo lvextend -r -l +100%FREE /dev/docker-vg/docker-pool
+
 
 - Once this is completed the xpaas script will execute doing :-
   - Subscription registration
@@ -55,3 +68,9 @@
   - Clone the openshift ansible git repo
   - Install openshift
   - Configure openshift
+
+  - TBD - sudo su
+          yum -y install httpd-tools
+          touch /etc/origin/htpasswd
+          htpasswd -c /etc/origin/htpasswd test  # enter test as the password
+

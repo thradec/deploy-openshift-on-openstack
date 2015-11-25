@@ -1,17 +1,20 @@
 [inventory]
 209.132.178.171 ose_hostname=master-osev31 ose_ip=209.132.178.171   ose_region=infra   ose_zone=default
-209.132.178.224 ose_hostname=node1-osev31  ose_ip=209.132.178.224   ose_region=primary ose_zone=default
-
+209.132.179.7   ose_hostname=node1-osev31  ose_ip=209.132.179.7     ose_region=primary ose_zone=default
+209.132.178.191 ose_hostname=node2-osev31  ose_ip=209.132.178.191   ose_region=primary ose_zone=default
+209.132.178.210 ose_hostname=node3-osev31  ose_ip=209.132.178.210   ose_region=primary ose_zone=default
 
 [master]
 209.132.178.171
 
 [dns]
-209.132.178.224
+209.132.179.7
 
 [node]
 209.132.178.171
-209.132.178.224
+209.132.179.7
+209.132.178.191
+209.132.178.210 
 
 [repos]
 209.132.183.44 name=xmlrpc.rhn.redhat.com

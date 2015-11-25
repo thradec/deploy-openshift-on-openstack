@@ -5,7 +5,7 @@
 
 - name: Install xpaas images
   command: oc create -n openshift -f https://raw.githubusercontent.com/jboss-openshift/application-templates/master/jboss-image-streams.json
-  when: images.stdout.find("jboss-eap6-openshift") == -1
+  when: images.stdout.find("jboss-eap64-openshift") == -1
 
 - name: List templates
   command: oc get -n openshift template
@@ -15,27 +15,42 @@
   command: oc create -n openshift -f {{ item.url }}
   when: templates.stdout.find("{{ item.name }}") == -1
   with_items:
-    - { name: 'eap6-basic-sti', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/eap/eap6-basic-sti.json'}
-    - { name: 'eap6-amq-sti', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/eap/eap6-amq-sti.json'}
-    - { name: 'eap6-amq-persistent-sti', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/eap/eap6-amq-persistent-sti.json'}
-    - { name: 'eap6-mongodb-persistent-sti', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/eap/eap6-mongodb-persistent-sti.json'}
-    - { name: 'eap6-mongodb-sti', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/eap/eap6-mongodb-sti.json'}
-    - { name: 'eap6-mysql-persistent-sti', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/eap/eap6-mysql-persistent-sti.json'}
-    - { name: 'eap6-mysql-sti', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/eap/eap6-mysql-sti.json'}
-    - { name: 'eap6-postgresql-persistent-sti', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/eap/eap6-postgresql-persistent-sti.json'}
-    - { name: 'eap6-postgresql-sti', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/eap/eap6-postgresql-sti.json'}
-    - { name: 'jws-tomcat7-basic-sti', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/webserver/jws-tomcat7-basic-sti.json'}
-    - { name: 'jws-tomcat7-mongodb-persistent-sti', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/webserver/jws-tomcat7-mongodb-persistent-sti.json'}
-    - { name: 'jws-tomcat7-mongodb-sti', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/webserver/jws-tomcat7-mongodb-sti.json'}
-    - { name: 'jws-tomcat7-mysql-sti', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/webserver/jws-tomcat7-mysql-sti.json'}
-    - { name: 'jws-tomcat7-postgresql-persistent-sti', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/webserver/jws-tomcat7-postgresql-persistent-sti.json'}
-    - { name: 'jws-tomcat7-postgresql-sti', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/webserver/jws-tomcat7-postgresql-sti.json'}
-    - { name: 'jws-tomcat8-basic-sti', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/webserver/jws-tomcat8-basic-sti.json'}
-    - { name: 'jws-tomcat8-mongodb-persistent-sti', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/webserver/jws-tomcat8-mongodb-persistent-sti.json'}
-    - { name: 'jws-tomcat8-mongodb-sti', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/webserver/jws-tomcat8-mongodb-sti.json'}
-    - { name: 'jws-tomcat8-mysql-persistent-sti', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/webserver/jws-tomcat8-mysql-persistent-sti.json'}
-    - { name: 'jws-tomcat8-mysql-sti', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/webserver/jws-tomcat8-mysql-sti.json'}
-    - { name: 'jws-tomcat8-postgresql-persistent-sti', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/webserver/jws-tomcat8-postgresql-persistent-sti.json'}
-    - { name: 'jws-tomcat8-postgresql-sti', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/webserver/jws-tomcat8-postgresql-sti.json'}
-    - { name: 'amq6', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/amq/amq6.json'}
-    - { name: 'amq6-persistent', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/amq/amq6-persistent.json'}
+    - { name: 'eap64-basic-s2i', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/eap/eap64-basic-s2i.json'}
+    - { name: 'eap64-https-s2i', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/eap/eap64-https-s2i.json'}
+    - { name: 'eap64-amq-s2i', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/eap/eap64-amq-s2i.json'}
+    - { name: 'eap64-amq-persistent-s2i', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/eap/eap64-amq-persistent-s2i.json'}
+    - { name: 'eap64-mongodb-persistent-s2i', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/eap/eap64-mongodb-persistent-s2i.json'}
+    - { name: 'eap64-mongodb-s2i', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/eap/eap64-mongodb-s2i.json'}
+    - { name: 'eap64-mysql-persistent-s2i', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/eap/eap64-mysql-persistent-s2i.json'}
+    - { name: 'eap64-mysql-s2i', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/eap/eap64-mysql-s2i.json'}
+    - { name: 'eap64-postgresql-persistent-s2i', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/eap/eap64-postgresql-persistent-s2i.json'}
+    - { name: 'eap64-postgresql-s2i', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/eap/eap64-postgresql-s2i.json'}
+    - { name: 'jws30-tomcat7-basic-s2i', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/webserver/jws30-tomcat7-basic-s2i.json'}
+    - { name: 'jws30-tomcat7-https-s2i', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/webserver/jws30-tomcat7-https-s2i.json'}
+    - { name: 'jws30-tomcat7-mongodb-persistent-s2i', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/webserver/jws30-tomcat7-mongodb-persistent-s2i.json'}
+    - { name: 'jws30-tomcat7-mongodb-s2i', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/webserver/jws30-tomcat7-mongodb-s2i.json'}
+    - { name: 'jws30-tomcat7-mysql-persistent-s2i', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/webserver/jws30-tomcat7-mysql-persistent-s2i.json'}
+    - { name: 'jws30-tomcat7-mysql-s2i', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/webserver/jws30-tomcat7-mysql-s2i.json'}
+    - { name: 'jws30-tomcat7-postgresql-persistent-s2i', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/webserver/jws30-tomcat7-postgresql-persistent-s2i.json'}
+    - { name: 'jws30-tomcat7-postgresql-s2i', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/webserver/jws30-tomcat7-postgresql-s2i.json'}
+    - { name: 'jws30-tomcat8-basic-s2i', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/webserver/jws30-tomcat8-basic-s2i.json'}
+    - { name: 'jws30-tomcat8-https-s2i', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/webserver/jws30-tomcat8-https-s2i.json'}
+    - { name: 'jws30-tomcat8-mongodb-persistent-s2i', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/webserver/jws30-tomcat8-mongodb-persistent-s2i.json'}
+    - { name: 'jws30-tomcat8-mongodb-s2i', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/webserver/jws30-tomcat8-mongodb-s2i.json'}
+    - { name: 'jws30-tomcat8-mysql-persistent-s2i', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/webserver/jws30-tomcat8-mysql-persistent-s2i.json'}
+    - { name: 'jws30-tomcat8-mysql-s2i', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/webserver/jws30-tomcat8-mysql-s2i.json'}
+    - { name: 'jws30-tomcat8-postgresql-persistent-s2i', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/webserver/jws30-tomcat8-postgresql-persistent-s2i.json'}
+    - { name: 'jws30-tomcat8-postgresql-s2i', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/webserver/jws30-tomcat8-postgresql-s2i.json'}
+    - { name: 'amq62-basic', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/amq/amq62-basic.json'}
+    - { name: 'amq62-ssl', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/amq/amq62-ssl.json'}
+    - { name: 'amq62-persistent', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/amq/amq62-persistent.json'}
+    - { name: 'amq62-persistent-ssl', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/amq/amq62-persistent-ssl.json'}
+    - { name: 'datagrid65-basic', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/datagrid/datagrid65-basic.json'}
+    - { name: 'datagrid65-https', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/datagrid/datagrid65-https.json'}
+    - { name: 'datagrid65-mysql-persistent', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/datagrid/datagrid65-mysql-persistent.json'}
+    - { name: 'datagrid65-mysql', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/datagrid/datagrid65-mysql.json'}
+    - { name: 'datagrid65-postgresql-persistent', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/datagrid/datagrid65-postgresql-persistent.json'}
+    - { name: 'datagrid65-postgresql', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/datagrid/datagrid65-postgresql.json'}
+    - { name: 'datagrid65-remote-cache', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/datagrid/datagrid65-remote-cache.json'}
+    - { name: 'decisionserver62-basic-s2i', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/decisionserver/decisionserver62-basic-s2i.json'}
+    - { name: 'decisionserver62-https-s2i', url: 'https://raw.githubusercontent.com/jboss-openshift/application-templates/master/decisionserver/decisionserver62-https-s2i.json'}

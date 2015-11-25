@@ -6,10 +6,18 @@
   command: oc get services -n default
   register: services
 
-- name: Deploy router
-  command: oadm router --credentials=/etc/openshift/master/openshift-router.kubeconfig --images='rcm-img-docker01.build.eng.bos.redhat.com:5001/openshift3/ose-${component}:${version}' --selector='region=infra' --service-account='router'
-  when: services.stdout.find("router") == -1
+- name: Deploy router from puddle
+  command: oadm router --credentials=/etc/origin/master/openshift-router.kubeconfig --images='rcm-img-docker01.build.eng.bos.redhat.com:5001/openshift3/ose-${component}:${version}' --selector='region=infra' --service-account='router'
+  when: services.stdout.find("router") == -1 and not use_released_registry
 
-- name: Deploy docker registry
-  command: oadm registry --credentials=/etc/openshift/master/openshift-registry.kubeconfig --images='rcm-img-docker01.build.eng.bos.redhat.com:5001/openshift3/ose-${component}:${version}' --selector='region=infra'
-  when: services.stdout.find("docker-registry") == -1
+- name: Deploy router from Red Hat registry
+  command: oadm router --credentials=/etc/origin/master/openshift-router.kubeconfig --images='openshift3/ose-${component}:${version}' --selector='region=infra' --service-account='router'
+  when: services.stdout.find("router") == -1 and use_released_registry
+
+- name: Deploy docker registry from puddle
+  command: oadm registry --credentials=/etc/origin/master/openshift-registry.kubeconfig --images='rcm-img-docker01.build.eng.bos.redhat.com:5001/openshift3/ose-${component}:${version}' --selector='region=infra'
+  when: services.stdout.find("docker-registry") == -1 and not use_released_registry
+
+- name: Deploy docker registry from Red Hat registry
+  command: oadm registry --credentials=/etc/origin/master/openshift-registry.kubeconfig --images='openshift3/ose-${component}:${version}' --selector='region=infra' --service-account='registry'
+  when: services.stdout.find("docker-registry") == -1 and use_released_registry

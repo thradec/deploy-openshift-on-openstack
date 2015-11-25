@@ -3,12 +3,16 @@
   command: oc get serviceAccount -n default
   register: sa
 
+- name: Copy authorized_keys file
+  copy: src=router-sa.json dest=/tmp/router-sa.json
+  when: sa.stdout.find("router") == -1
+
 - name: Create 'router' Service Account
-  command: echo '{"kind":"ServiceAccount","apiVersion":"v1","metadata":{"name":"router"}}' | oc create -f -
+  command: oc create -f /tmp/router-sa.json
   when: sa.stdout.find("router") == -1
 
 - name: Find Security Context Constraints
-  command: oc get serviceAccount -n default
+  command: oc get scc -n default
   register: scc
 
 - name: Create 'hostport' Security Context Constraint

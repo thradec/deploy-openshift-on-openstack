@@ -10,9 +10,8 @@
     - net-tools
     - bind-utils
     - git
-    - iptables-services 
-    - bridge-utils 
-    - bash-completion
+    - iptables-services
+    - bridge-utils
     - atomic-openshift-utils
 
 - name: Update machine

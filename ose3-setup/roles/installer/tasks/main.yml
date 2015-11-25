@@ -1,4 +1,7 @@
 ---
+- name: Delete previous version of ansible
+  file: path=/tmp/openshift-ansible state=absent
+
 - name: Clone git repository
   git: dest=/tmp/openshift-ansible repo={{ ose_installer_uri }} version={{ ose_installer_branch }}
 
