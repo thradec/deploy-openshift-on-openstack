@@ -1,0 +1,17 @@
+[inventory]
+${master-ose31-ip}    ose_hostname=master-ose31 ose_ip=${master-ose31-ip}   ose_region=primary   ose_zone=default
+${node1-ose31-ip}    ose_hostname=node1-ose31  ose_ip=${node1-ose31-ip}   ose_region=infra     ose_zone=default
+${node2-ose31-ip}    ose_hostname=node2-ose31  ose_ip=${node2-ose31-ip}   ose_region=primary   ose_zone=default
+${node3-ose31-ip}    ose_hostname=node3-ose31  ose_ip=${node3-ose31-ip}   ose_region=primary   ose_zone=default
+
+[master]
+${master-ose31-ip}
+
+[dns]
+${node1-ose31-ip}
+
+[node]
+${master-ose31-ip}
+${node1-ose31-ip}
+${node2-ose31-ip}
+${node3-ose31-ip}

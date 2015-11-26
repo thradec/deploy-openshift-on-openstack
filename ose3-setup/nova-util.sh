@@ -42,7 +42,7 @@
 
 clear
 
-cmds=( create createServer remove removeKey removeSecGroup useRc )
+cmds=( create createServer generateHostsFile remove removeKey removeSecGroup useRc )
 
 # define convenience functions 
 function updateTime() {
@@ -62,7 +62,8 @@ RHEL_IMAGE=rhel-guest-image-7.1-20150224.0.x86_64
 
 function usage() {
   echo -e "${INFO} Usage \n"
-  echo -e "        \033[0;93m./nova-util.sh create\033[0m"       
+  echo -e "        \033[0;93m./nova-util.sh create\033[0m"
+  echo -e "        \033[0;93m./nova-util.sh generateHostsFile\033[0m"
   echo -e "        \033[0;93m./nova-util.sh remove\033[0m"
   echo -e "        \033[0;93m./nova-util.sh removeKey\033[0m"
   echo -e "        \033[0;93m./nova-util.sh removeSecGroup\033[0m"
@@ -144,6 +145,8 @@ function create() {
   done
 
   nova list
+
+  generateHostsFile
 }
 
 function createServer() {
@@ -159,6 +162,25 @@ function createServer() {
   done
 
   nova list
+}
+
+function generateHostsFile() {
+  echo -e "{INFO} Generating ansible hosts file from template"
+
+  local CMD_SED="sed"
+  for INSTANCE_NAME in ${INSTANCES[@]}; do
+    local INSTANCE_IP="$(nova list --name=${INSTANCE_NAME} --field networks | grep '=' | awk '{print $5}')"
+    if [ -z "$INSTANCE_IP" ]
+    then
+      echo -e "${ERROR} Unable to parse IP address for instance ${INSTANCE_NAME}"
+      exit 1
+    fi
+
+    CMD_SED+=" -e 's/\${${INSTANCE_NAME}-ip}/${INSTANCE_IP}/g'"
+  done
+
+  CMD_SED+=" hosts.template > hosts"
+  eval $CMD_SED
 }
 
 function remove() {
@@ -237,6 +259,9 @@ else
     ;;
     createServer)
         createServer ${2}
+    ;;
+    generateHostsFile)
+        generateHostsFile ${2}
     ;;
       remove)
         remove ${2}
